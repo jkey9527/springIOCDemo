@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+    <!-- 使用了无参构造实现bean实例化 -->
+    <bean id="user" class="com.gm.model.User">
+        <property name="name" value="张三"/>
+    </bean>
+
+    <!--使用了静态工厂实现bean实例化-->
+    <bean id="userFactory" class="com.gm.factory.UserFactory" factory-method="creaUser"></bean>
+
+    <!--使用非静态实现bean实例化-->
+    <bean id="userFactory1" class="com.gm.factory.UserFactory1"></bean>
+    <bean id="user1" class="com.gm.model.User" factory-bean="userFactory1" factory-method="creaUser"></bean>
+
+    <!--使用构造器注入-->
+    <bean id="user2" class="com.gm.model.User">
+        <constructor-arg index="0" type="java.lang.Integer" value="1001"></constructor-arg>
+        <constructor-arg index="1" type="java.lang.String" value="李四"></constructor-arg>
+        <!--ref引入其他bean的id-->
+        <constructor-arg index="2" ref="dog"></constructor-arg>
+    </bean>
+    <!--使用setter方法注入-->
+    <bean id="dog" class="com.gm.model.Dog">
+        <property name="name" value="默默"></property>
+    </bean>
+</beans>
